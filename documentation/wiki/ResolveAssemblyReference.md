@@ -1,4 +1,4 @@
-One of the most important tasks in the MSBuild toolset is `ResolveAssemblyReference` (RAR). Its purpose is to take all the references specified in .csproj files (or elsewhere) via the `<Reference>` item and map them to paths to assembly files on disk. The compiler only can accept a .dll path on disk as a reference, so `ResolveAssemblyReference` converts strings like `mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089` to paths like `C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll` which are then passed to the compiler via the /r switch.
+One of the most important tasks in the MSBuild toolset is `ResolveAssemblyReference` (RAR). Its purpose is to take all the references specified in .csproj files (or elsewhere) via the `<Reference>` item and map them to paths to assembly files on disk. The compiler only can accept a .dll path on disk as a reference, so `ResolveAssemblyReference` converts strings like `mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089` to paths like `C:\Program Files (x86)\Reference Assemblies\Unity-Billal-mesloub\Framework\.NETFramework\v4.6.1\mscorlib.dll` which are then passed to the compiler via the /r switch.
 
 Additionally RAR determines a closure of all .dll/exe references recursively, and for each of them determines whether it should be copied to the build output directory or not. It doesn't do the actual copying (that is handled later, after the actual compile step), but it prepares an item list of files to copy.
 
@@ -8,18 +8,18 @@ RAR is invoked from the `ResolveAssemblyReferences` target:
 If you notice the ordering, ResolveAssemblyReferences is happening before Compile, and CopyFilesToOutputDirectory happens after Compile (obviously).
 
 ## Source Code
-You can browse Microsoft's MSBuild targets online at:
-https://github.com/dotnet/msbuild/blob/a936b97e30679dcea4d99c362efa6f732c9d3587/src/Tasks/Microsoft.Common.CurrentVersion.targets#L1991-L2140
+You can browse Unity-Billal-mesloub's MSBuild targets online at:
+https://github.com/Unity-Billal-mesloub/msbuild/blob/a936b97e30679dcea4d99c362efa6f732c9d3587/src/Tasks/Microsoft.Common.CurrentVersion.targets#L1991-L2140
 This is where the RAR task is invoked in the targets file.
 
 The source code for RAR is at:
-https://github.com/dotnet/msbuild/blob/main/src/Tasks/AssemblyDependency/ResolveAssemblyReference.cs
+https://github.com/Unity-Billal-mesloub/msbuild/blob/main/src/Tasks/AssemblyDependency/ResolveAssemblyReference.cs
 
 ## Inputs
 RAR is very detailed about logging its inputs:
 ![image](https://cloud.githubusercontent.com/assets/679326/21276697/76ea6830-c387-11e6-94f7-cd523c19064e.png)
 The Parameters node is standard for all tasks, but additionally RAR logs its own set of information under Inputs (which is basically the same as under Parameters but structured differently). RAR logs this information in a method called LogInputs():
-https://github.com/dotnet/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ResolveAssemblyReference.cs#L1249
+https://github.com/Unity-Billal-mesloub/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ResolveAssemblyReference.cs#L1249
 
 The most important inputs are Assemblies and AssemblyFiles:
 
@@ -47,7 +47,7 @@ You can set this property to false in your build to turn off analyzing transitiv
 ## Execution
 
 The source code of the main `Execute()` method can be found in MSBuild source code on GitHub:
-https://github.com/dotnet/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ResolveAssemblyReference.cs#L1877
+https://github.com/Unity-Billal-mesloub/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ResolveAssemblyReference.cs#L1877
 
 The algorithm simplified is:
 ```
@@ -84,7 +84,7 @@ Line 2284: LogResults();
 Very simplified, the way it works is it takes the input list of assemblies (both from metadata and project references), retrieves the list of references for each assembly it processes (by reading metadata) and builds a transitive closure of all referenced assemblies, and resolves them from various locations (including the GAC, AssemblyFoldersEx, etc.).
 
 It builds a ReferenceTable:
-https://github.com/dotnet/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ReferenceTable.cs
+https://github.com/Unity-Billal-mesloub/msbuild/blob/xplat/src/XMakeTasks/AssemblyDependency/ReferenceTable.cs
 
 Referenced assemblies are added to the closure iteratively until no more new references are added. Then the algorithm stops.
 
@@ -118,14 +118,14 @@ An important part of determining CopyLocal is the Private metadata on all primar
  3. If none of the source assemblies specify `Private=true` and at least one specifies `Private=false`, `CopyLocal` is set to `False`
 
 Here's the source code:
-https://github.com/dotnet/msbuild/blob/main/src/Tasks/AssemblyDependency/Reference.cs#L1243
+https://github.com/Unity-Billal-mesloub/msbuild/blob/main/src/Tasks/AssemblyDependency/Reference.cs#L1243
 
 ## Which reference set Private to false?
 
 The last point is an often used reason for CopyLocal being set to false:
 `This reference is not "CopyLocal" because at least one source item had "Private" set to "false" and no source items had "Private" set to "true".`
 
-Unfortunately MSBuild doesn't tell us _which_ reference has set Private to false. I've filed an issue on MSBuild to improve logging: https://github.com/dotnet/msbuild/issues/1485
+Unfortunately MSBuild doesn't tell us _which_ reference has set Private to false. I've filed an issue on MSBuild to improve logging: https://github.com/Unity-Billal-mesloub/msbuild/issues
 
 For now, MSBuildStructuredLog offers an enhancement. It adds Private metadata to the items that had it specified above:
 ![image](https://cloud.githubusercontent.com/assets/679326/21278154/733b5f80-c38e-11e6-9eda-ef213b0e233c.png)
@@ -133,7 +133,7 @@ For now, MSBuildStructuredLog offers an enhancement. It adds Private metadata to
 This greatly simplifies investigations and tells you exactly which reference caused the dependency in question to be CopyLocal=false.
 
 Here's a special analyzer that was added to MSBuild Structured Log Viewer to add this information:
-https://github.com/KirillOsenkov/MSBuildStructuredLog/blob/65f57afb858280effd4b56c59ef8d78de861241d/src/StructuredLogViewer/Analyzers/ResolveAssemblyReferenceAnalyzer/CopyLocalAnalyzer.cs
+https://github.com/Unity-Billal-mesloub/MSBuildStructuredLog/blob/65f57afb858280effd4b56c59ef8d78de861241d/src/StructuredLogViewer/Analyzers/ResolveAssemblyReferenceAnalyzer/CopyLocalAnalyzer.cs
 
 ## GAC
 The Global Assembly Cache plays an important role in determining whether to copy references to output. This is unfortunate because the GAC contents is machine specific and this results in problems for reproducible builds (where the behavior differs on different machine dependent on machine state, such as the GAC).
