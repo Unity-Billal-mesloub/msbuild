@@ -146,7 +146,7 @@ marking the assembly trimmable.
 
 ## 3. The warning families
 
-Authoritative index: [dotnet/runtime `docs/tools/illink/error-codes.md`](https://github.com/dotnet/runtime/blob/main/docs/tools/illink/error-codes.md).
+Authoritative index: [dotnet/runtime `docs/tools/illink/error-codes.md`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/docs/tools/illink/error-codes.md).
 
 | Range | Family | Emitted for | Typical cause |
 | --- | --- | --- | --- |
@@ -367,7 +367,7 @@ else
 
 There are in fact **two** related properties, and it is worth knowing which is which. Under
 Native AOT the runtime hard-codes both to `false`
-([`RuntimeFeature.NativeAot.cs`](https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/System.Private.CoreLib/src/System/Runtime/CompilerServices/RuntimeFeature.NativeAot.cs)):
+([`RuntimeFeature.NativeAot.cs`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/coreclr/nativeaot/System.Private.CoreLib/src/System/Runtime/CompilerServices/RuntimeFeature.NativeAot.cs)):
 
 ```csharp
 [FeatureSwitchDefinition("System.Runtime.CompilerServices.RuntimeFeature.IsDynamicCodeSupported")]
@@ -418,7 +418,7 @@ register the type up front, or track the row as Backlog.
 
 These MSBuild properties trim the corresponding code *and* set the matching
 `runtimeconfig` switch. Full list + runtimeconfig names:
-[feature-switches.md](https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md).
+[feature-switches.md](https://github.com/Unity-Billal-mesloub/runtime/blob/main/docs/workflow/trimming/feature-switches.md).
 
 | Property | Effect when set |
 | --- | --- |
@@ -446,11 +446,11 @@ This is the part most people get wrong, so it is the most detailed.
 
 ### 6.1 Design and history
 
-- Original design: [dotnet/designs — feature-switch.md (2020)](https://github.com/dotnet/designs/blob/main/accepted/2020/feature-switch.md).
+- Original design: [dotnet/designs — feature-switch.md (2020)](https://github.com/Unity-Billal-mesloub/designs/blob/main/accepted/2020/feature-switch.md).
 - Attribute model (the `[FeatureSwitchDefinition]`/`[FeatureGuard]` you use today):
-  API proposal [dotnet/runtime#96859](https://github.com/dotnet/runtime/issues/96859),
-  design discussion [dotnet/designs#305](https://github.com/dotnet/designs/pull/305),
-  analyzer implementation [dotnet/runtime#94944](https://github.com/dotnet/runtime/pull/94944).
+  API proposal [dotnet/runtime#96859](https://github.com/Unity-Billal-mesloub/runtime/issues),
+  design discussion [dotnet/designs#305](https://github.com/Unity-Billal-mesloub/designs/pull/305),
+  analyzer implementation [dotnet/runtime#94944](https://github.com/Unity-Billal-mesloub/runtime/pull).
 - API docs: [FeatureSwitchDefinitionAttribute](https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.featureswitchdefinitionattribute),
   [FeatureGuardAttribute](https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.featureguardattribute).
 
@@ -486,20 +486,20 @@ SDK/runtime item (not an MSBuild-engine one); three targets across two repos con
 
 | Consumer | Repo · target file | Target / how |
 | --- | --- | --- |
-| `runtimeconfig.json` `configProperties` | dotnet/sdk · [Microsoft.NET.Sdk.targets](https://github.com/dotnet/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets) | `GenerateBuildRuntimeConfigurationFiles` calls the `GenerateRuntimeConfigurationFiles` task with `HostConfigurationOptions="@(RuntimeHostConfigurationOption)"`. |
-| Trim substitution (the `Trim="true"` half) | dotnet/runtime · [Microsoft.NET.ILLink.targets](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets) | `_PrepareTrimConfiguration` builds `@(_TrimmerFeatureSettings)` from options where `%(Trim)=='true'`; `_RunILLink` passes them as `FeatureSettings` to the `ILLink` task. |
-| Native AOT | dotnet/runtime · [Microsoft.NETCore.Native.targets](https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/BuildIntegration/Microsoft.NETCore.Native.targets) | Emits `--feature:Name=Value` (from `_TrimmerFeatureSettings`) **and** `--runtimeknob:Name=Value` (from every option) to ILC. |
+| `runtimeconfig.json` `configProperties` | dotnet/sdk · [Microsoft.NET.Sdk.targets](https://github.com/Unity-Billal-mesloub/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets) | `GenerateBuildRuntimeConfigurationFiles` calls the `GenerateRuntimeConfigurationFiles` task with `HostConfigurationOptions="@(RuntimeHostConfigurationOption)"`. |
+| Trim substitution (the `Trim="true"` half) | dotnet/runtime · [Microsoft.NET.ILLink.targets](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets) | `_PrepareTrimConfiguration` builds `@(_TrimmerFeatureSettings)` from options where `%(Trim)=='true'`; `_RunILLink` passes them as `FeatureSettings` to the `ILLink` task. |
+| Native AOT | dotnet/runtime · [Microsoft.NETCore.Native.targets](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/coreclr/nativeaot/BuildIntegration/Microsoft.NETCore.Native.targets) | Emits `--feature:Name=Value` (from `_TrimmerFeatureSettings`) **and** `--runtimeknob:Name=Value` (from every option) to ILC. |
 
 **Trimmer eligibility — the exact shape a feature-switch property must have.** ILLink only
 substitutes a getter that passes
-[`MemberActionStore.TryGetFeatureCheckValue`](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/linker/Linker/MemberActionStore.cs):
+[`MemberActionStore.TryGetFeatureCheckValue`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/linker/Linker/MemberActionStore.cs):
 it must be **static**, **return `bool`**, be a **property getter**, and the property must
 have **no setter**. There is **no accessibility requirement** — `public`, `internal`, and
 `private` all work (the API docs' "public … property" wording is descriptive, not
 enforced; the BCL and MSBuild both use `internal`). The switch value must also be *supplied*
 (via `--feature`, i.e. the `Trim="true"` `RuntimeHostConfigurationOption`); a
 `[FeatureSwitchDefinition]` with no supplied value is left untouched. When eligible,
-[`CodeRewriterStep`](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/linker/Linker.Steps/CodeRewriterStep.cs)
+[`CodeRewriterStep`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/linker/Linker.Steps/CodeRewriterStep.cs)
 (`RewriteBodyToStub` → `CreateStubBody`) **discards the entire body** and replaces it with
 `return <const>` (`ldc.i4.0` / `ldc.i4.1`). Because the body is thrown away wholesale, its
 logic is never evaluated at trim time — which is exactly why a body like
@@ -514,7 +514,7 @@ and must have no `out` parameters.
 [Microsoft.Build.Framework.csproj](../../src/Framework/Microsoft.Build.Framework.csproj):
 
 ```csharp
-[FeatureSwitchDefinition("Microsoft.Build.EnableAllPropertyFunctions")]
+[FeatureSwitchDefinition("Unity-Billal-mesloub.Build.EnableAllPropertyFunctions")]
 [FeatureGuard(typeof(RequiresUnreferencedCodeAttribute))]
 #pragma warning disable IL4000 // see §6.4
 internal static bool EnableAllPropertyFunctions =>
@@ -524,7 +524,7 @@ internal static bool EnableAllPropertyFunctions =>
 #pragma warning restore IL4000
 ```
 ```xml
-<RuntimeHostConfigurationOption Include="Microsoft.Build.EnableAllPropertyFunctions" Value="false" Trim="true" />
+<RuntimeHostConfigurationOption Include="Unity-Billal-mesloub.Build.EnableAllPropertyFunctions" Value="false" Trim="true" />
 ```
 
 At the probing call site in
@@ -546,7 +546,7 @@ FeatureGuard annotations is disabled."` — even for the textbook
 source:
 
 The analyzer computes which features a guard body checks in
-[`FeatureChecksVisitor`](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/DataFlow/FeatureChecksVisitor.cs):
+[`FeatureChecksVisitor`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/DataFlow/FeatureChecksVisitor.cs):
 
 ```csharp
 public override FeatureChecksValue DefaultVisit(IOperation operation, StateValue state)
@@ -566,7 +566,7 @@ The **only** body shapes it understands as guarding a feature are:
 
 `AppContext.TryGetSwitch(...)` is a **method invocation** — there is no `VisitInvocation`,
 so it falls through to `DefaultVisit` → `FeatureChecksValue.None`. Then
-[`FeatureCheckReturnValuePattern`](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/TrimAnalysis/FeatureCheckReturnValuePattern.cs)
+[`FeatureCheckReturnValuePattern`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/TrimAnalysis/FeatureCheckReturnValuePattern.cs)
 reports IL4000 because the computed set doesn't contain the guarded feature:
 
 ```csharp
@@ -577,7 +577,7 @@ foreach (string feature in FeatureCheckAnnotations.GetKnownValues())
 
 **Consequence:** a feature guard implemented with `AppContext.TryGetSwitch` **always**
 trips IL4000 because the analyzer only models a small, "obvious" set of
-patterns; introduced in [#94944](https://github.com/dotnet/runtime/pull/94944)). The real
+patterns; introduced in [#94944](https://github.com/Unity-Billal-mesloub/runtime/pull)). The real
 ILLink trimmer doesn't evaluate the body at all — it *substitutes* the property — so
 trimming is still correct.
 
@@ -640,7 +640,7 @@ That is still correct at run time — it just means nothing was trimmed.
 project that declares it, and it does **not** transit across `ProjectReference` /
 `PackageReference`. What actually travels inside the built assembly is only the
 `[FeatureSwitchDefinition("X")]` attribute — the trimmer reads it
-([`MemberActionStore.TryGetFeatureCheckValue`](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/linker/Linker/MemberActionStore.cs))
+([`MemberActionStore.TryGetFeatureCheckValue`](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/linker/Linker/MemberActionStore.cs))
 to learn *which* member switch `X` controls, but **the attribute carries no value**. So at a
 consumer's trim/AOT publish ILC substitutes the getter **only if the value of `X` is supplied
 in that consumer's own build**.
@@ -669,10 +669,10 @@ the dotnet SDK:
 
 **How the runtime's own framework switches get auto-culled for AOT.** The SDK does it, not the
 runtime DLLs: a `<PropertyGroup Condition="'$(PublishTrimmed)' == 'true'">` in
-[Microsoft.NET.ILLink.targets](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets)
+[Microsoft.NET.ILLink.targets](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets)
 hardcodes the trim-safe default of every framework switch (`StartupHookSupport=false`,
 `EventSourceSupport`, `UseSystemResourceKeys`, `DebuggerSupport`, …), and
-[Microsoft.NET.Sdk.targets](https://github.com/dotnet/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets)
+[Microsoft.NET.Sdk.targets](https://github.com/Unity-Billal-mesloub/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets)
 maps those MSBuild properties to `RuntimeHostConfigurationOption … Trim="true"`. At publish
 those become `--feature Name=Value`, the `[FeatureSwitchDefinition]` getters are substituted,
 and the dead branches are culled. **The defaults live in the SDK, gated on
@@ -705,7 +705,7 @@ at run time.
 ### 6.6 External example: a product switch registry (MAUI)
 
 MSBuild keeps its switches in one `internal static` registry ([FeatureSwitches.cs](../../src/Framework/FeatureSwitches.cs));
-.NET MAUI does the same in [`RuntimeFeature`](https://github.com/dotnet/maui/blob/main/src/Core/src/RuntimeFeature.cs),
+.NET MAUI does the same in [`RuntimeFeature`](https://github.com/Unity-Billal-mesloub/maui/blob/main/src/Core/src/RuntimeFeature.cs),
 and it is a useful second reference because it shows the multi-target and stacked-guard cases:
 
 ```csharp
@@ -844,24 +844,24 @@ flowchart TD
 - `FeatureGuardAttribute`: <https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.featureguardattribute>
 
 **Designs / proposals / PRs**
-- Feature-switch design (2020): <https://github.com/dotnet/designs/blob/main/accepted/2020/feature-switch.md>
-- Attribute-model API proposal: <https://github.com/dotnet/runtime/issues/96859>
-- Attribute-model design discussion: <https://github.com/dotnet/designs/pull/305>
-- Analyzer support for feature checks (introduces IL4000): <https://github.com/dotnet/runtime/pull/94944>
+- Feature-switch design (2020): <https://github.com/Unity-Billal-mesloub/designs/blob/main/accepted/2020/feature-switch.md>
+- Attribute-model API proposal: <https://github.com/Unity-Billal-mesloub/runtime/issues>
+- Attribute-model design discussion: <https://github.com/Unity-Billal-mesloub/designs/pull>
+- Analyzer support for feature checks (introduces IL4000): <https://github.com/Unity-Billal-mesloub/runtime/pull>
 
 **Sources**
-- Feature-check body modeling: [FeatureChecksVisitor.cs](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/DataFlow/FeatureChecksVisitor.cs)
-- IL4000 decision: [FeatureCheckReturnValuePattern.cs](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/TrimAnalysis/FeatureCheckReturnValuePattern.cs)
-- IL4000 warning text: [SharedStrings.resx](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.Shared/SharedStrings.resx)
-- `RuntimeHostConfigurationOption` → trimmer feature switches: [Microsoft.NET.ILLink.targets](https://github.com/dotnet/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets) (targets `_PrepareTrimConfiguration`, `_RunILLink`)
-- `RuntimeHostConfigurationOption` → ILC args: [Microsoft.NETCore.Native.targets](https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/BuildIntegration/Microsoft.NETCore.Native.targets)
-- `RuntimeHostConfigurationOption` → runtimeconfig.json: [Microsoft.NET.Sdk.targets](https://github.com/dotnet/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets) (target `GenerateBuildRuntimeConfigurationFiles`)
-- Error-code list: <https://github.com/dotnet/runtime/blob/main/docs/tools/illink/error-codes.md>
-- Feature-switch list: <https://github.com/dotnet/runtime/blob/main/docs/workflow/trimming/feature-switches.md>
+- Feature-check body modeling: [FeatureChecksVisitor.cs](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/DataFlow/FeatureChecksVisitor.cs)
+- IL4000 decision: [FeatureCheckReturnValuePattern.cs](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.RoslynAnalyzer/TrimAnalysis/FeatureCheckReturnValuePattern.cs)
+- IL4000 warning text: [SharedStrings.resx](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.Shared/SharedStrings.resx)
+- `RuntimeHostConfigurationOption` → trimmer feature switches: [Microsoft.NET.ILLink.targets](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/tools/illink/src/ILLink.Tasks/build/Microsoft.NET.ILLink.targets) (targets `_PrepareTrimConfiguration`, `_RunILLink`)
+- `RuntimeHostConfigurationOption` → ILC args: [Microsoft.NETCore.Native.targets](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/coreclr/nativeaot/BuildIntegration/Microsoft.NETCore.Native.targets)
+- `RuntimeHostConfigurationOption` → runtimeconfig.json: [Microsoft.NET.Sdk.targets](https://github.com/Unity-Billal-mesloub/sdk/blob/main/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.targets) (target `GenerateBuildRuntimeConfigurationFiles`)
+- Error-code list: <https://github.com/Unity-Billal-mesloub/runtime/blob/main/docs/tools/illink/error-codes.md>
+- Feature-switch list: <https://github.com/Unity-Billal-mesloub/runtime/blob/main/docs/workflow/trimming/feature-switches.md>
 
 **Real-world feature-switch registries**
-- BCL `RuntimeFeature` under Native AOT (both properties hard-coded `false`): [RuntimeFeature.NativeAot.cs](https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/System.Private.CoreLib/src/System/Runtime/CompilerServices/RuntimeFeature.NativeAot.cs)
-- .NET MAUI's product switch registry (stacked guards, const defaults, `#if NET9_0_OR_GREATER`): [RuntimeFeature.cs](https://github.com/dotnet/maui/blob/main/src/Core/src/RuntimeFeature.cs)
+- BCL `RuntimeFeature` under Native AOT (both properties hard-coded `false`): [RuntimeFeature.NativeAot.cs](https://github.com/Unity-Billal-mesloub/runtime/blob/main/src/coreclr/nativeaot/System.Private.CoreLib/src/System/Runtime/CompilerServices/RuntimeFeature.NativeAot.cs)
+- .NET MAUI's product switch registry (stacked guards, const defaults, `#if NET9_0_OR_GREATER`): [RuntimeFeature.cs](https://github.com/Unity-Billal-mesloub/maui/blob/main/src/Core/src/RuntimeFeature.cs)
 
 **This repo** — see the [folder README](README.md) for the full document map. Key source:
 - Central feature switches: [FeatureSwitches.cs](../../src/Framework/FeatureSwitches.cs)
