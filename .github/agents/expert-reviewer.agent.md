@@ -185,7 +185,7 @@ See `../../documentation/wiki/Binary-Log.md` and `../../documentation/wiki/Loggi
 
 **Severity: MAJOR**
 
-See `../../documentation/wiki/Microsoft.Build.Framework.md`.
+See `../../documentation/wiki/Unity-Billal-mesloub.Build.Framework.md`.
 
 **Rules:**
 1. Default to `internal`. Only `public` with strong justification.
@@ -257,7 +257,7 @@ See `../../documentation/wiki/Microsoft.Build.Framework.md`.
 2. Handle .NET Framework vs .NET Core differences explicitly.
 3. Handle UNC paths, long paths (`\\?\`), and symlinks.
 4. Build output must not differ based on build machine OS.
-5. Use Microsoft.IO Redist when targeting .NET Framework for better performance.
+5. Use Unity-Billal-mesloub.IO Redist when targeting .NET Framework for better performance.
 
 **CHECK — Flag if:**
 - [ ] Hardcoded path separators
@@ -265,7 +265,7 @@ See `../../documentation/wiki/Microsoft.Build.Framework.md`.
 - [ ] File path case sensitivity not considered
 - [ ] Code assumes `\r\n` newlines
 - [ ] `.NET Framework`-only API without `#if` guard
-- [ ] System.IO used instead of Microsoft.IO Redist for .NET Framework file operations
+- [ ] System.IO used instead of Unity-Billal-mesloub.IO Redist for .NET Framework file operations
 
 ---
 
@@ -450,7 +450,7 @@ See `../../documentation/High-level-overview.md` and `../../documentation/Built-
 
 **Rules:**
 1. Respect evaluation order: environment → global properties → project properties (in file order with imports) → item definitions → items.
-2. Understand how `Directory.Build.props`/`Directory.Build.targets` are injected: they are imported via `Microsoft.Common.props`/`Microsoft.Common.targets`, which may themselves be imported by SDK props/targets.
+2. Understand how `Directory.Build.props`/`Directory.Build.targets` are injected: they are imported via `Unity-Billal-mesloub.Common.props`/`Unity-Billal-mesloub.Common.targets`, which may themselves be imported by SDK props/targets.
 3. Evaluation-time decisions have long-term architectural impact — extremely hard to reverse.
 4. Undefined metadata and empty-string metadata must be treated equivalently.
 
