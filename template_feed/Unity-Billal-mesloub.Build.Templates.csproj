@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Unity-Billal-mesloub.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>$(LatestDotNetCoreForMSBuild)</TargetFramework>
-    <Authors>Microsoft</Authors>
-    <Description>Common Microsoft Build Templates</Description>
+    <Authors>Unity-Billal-mesloub</Authors>
+    <Description>Common Unity Billal mesloub Build Templates</Description>
     <PackageType>Template</PackageType>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
