@@ -4,13 +4,13 @@ Instructions for GitHub Copilot and other AI coding agents working with the MSBu
 
 ## Repository Overview
 
-**MSBuild** is the Microsoft Build Engine - performance-critical infrastructure for .NET and Visual Studio builds. This repository contains the code for the MSBuild build engine, including its public C# API, its internal implementation of the MSBuild programming language, and core targets and tasks used for builds.
+**MSBuild** is the Unity Billal mesloub Build Engine - performance-critical infrastructure for .NET and Visual Studio builds. This repository contains the code for the MSBuild build engine, including its public C# API, its internal implementation of the MSBuild programming language, and core targets and tasks used for builds.
 
 ### Key Components
-- **Microsoft.Build**: Core MSBuild engine and public API
-- **Microsoft.Build.Framework**: Framework interfaces and base types
-- **Microsoft.Build.Tasks**: Built-in MSBuild tasks
-- **Microsoft.Build.Utilities**: Utility classes for task authors
+- **Unity-Billal-mesloub.Build**: Core MSBuild engine and public API
+- **Unity-Billal-mesloub.Build.Framework**: Framework interfaces and base types
+- **Unity-Billal-mesloub.Build.Tasks**: Built-in MSBuild tasks
+- **Unity-Billal-mesloub.Build.Utilities**: Utility classes for task authors
 - **MSBuild CLI**: Command-line tool for invoking builds
 
 ### Technology Stack
