@@ -1,6 +1,6 @@
 # MSBuild object model - Native AOT validation harness
 
-A standalone **MSTest + Microsoft.Testing.Platform (MTP)** test project that runs **Native
+A standalone **MSTest + Unity-Billal-mesloub.Testing.Platform (MTP)** test project that runs **Native
 AOT-published** and validates that the MSBuild object-model scenarios the .NET SDK CLI relies on
 in-process actually work under AOT.
 
@@ -27,12 +27,12 @@ From the repository root, using the repo's pinned SDK (`.dotnet\dotnet.exe`):
 
 ```powershell
 # Fast JIT pass (build + run the MTP test host)
-.\.dotnet\dotnet.exe build src\aot-validation\Microsoft.Build.AotValidation.csproj
-.\src\aot-validation\bin\Debug\net11.0\win-x64\Microsoft.Build.AotValidation.exe
+.\.dotnet\dotnet.exe build src\aot-validation\Unity-Billal-mesloub.Build.AotValidation.csproj
+.\src\aot-validation\bin\Debug\net11.0\win-x64\Unity-Billal-mesloub.Build.AotValidation.exe
 
 # Native AOT pass (the real validation): publish, then run the native exe
-.\.dotnet\dotnet.exe publish src\aot-validation\Microsoft.Build.AotValidation.csproj -r win-x64 -c Release
-.\src\aot-validation\bin\Release\net11.0\win-x64\publish\Microsoft.Build.AotValidation.exe
+.\.dotnet\dotnet.exe publish src\aot-validation\Unity-Billal-mesloub.Build.AotValidation.csproj -r win-x64 -c Release
+.\src\aot-validation\bin\Release\net11.0\win-x64\publish\Unity-Billal-mesloub.Build.AotValidation.exe
 ```
 
 Native AOT publishing requires the Visual Studio C++ toolchain (the MSVC linker). A run prints the
@@ -47,7 +47,7 @@ MSTest has two MTP integrations, and only one is AOT-compatible:
   under Native AOT.
 - `MSTest.Engine` + `MSTest.SourceGeneration` is MSTest's **source-generated** runner. It registers
   tests and the MTP entry point with no runtime reflection, so it works under AOT. This harness uses
-  it, with `Microsoft.Testing.Platform.MSBuild` generating the entry point. This is the same MTP
+  it, with `Unity-Billal-mesloub.Testing.Platform.MSBuild` generating the entry point. This is the same MTP
   family `dotnet test` uses in MTP mode.
 
 ## What it found
@@ -81,7 +81,7 @@ which is the AOT-hard tier this harness deliberately does not cover.
    constructors, forcing this harness to `#pragma warning disable IL2026`. That suppression is gone:
    in-box SDK resolution is a reflection-free directory probe, so it stays trim-safe, and the
    reflective plugin-resolver load is now gated behind the
-   `Microsoft.Build.EnableSdkResolverDynamicLoading` feature switch that fails observably (MSB4282)
+   `Unity-Billal-mesloub.Build.EnableSdkResolverDynamicLoading` feature switch that fails observably (MSB4282)
    when disabled (see [documentation/aot/sdk-resolution.md](../../documentation/aot/sdk-resolution.md)).
    This harness bakes that switch **off** (a `RuntimeHostConfigurationOption` with `Trim="true"`, mirroring
    an AOT dotnet CLI), so ILC dead-strips the reflective branch and `Evaluation_InBoxSdkResolvesReflectionFree`
@@ -92,7 +92,7 @@ which is the AOT-hard tier this harness deliberately does not cover.
    into the .NET build, and the `locations & ConfigurationFile` selector is a runtime flag ILC cannot prove
    is never set, so it used to keep the whole subtree and surface an **IL2104** for the
    `System.Configuration.ConfigurationManager` assembly. That block is now gated behind the
-   `Microsoft.Build.EnableConfigurationFileToolsets` feature switch (default **on**, so the JIT keeps reading
+   `Unity-Billal-mesloub.Build.EnableConfigurationFileToolsets` feature switch (default **on**, so the JIT keeps reading
    `.exe.config` toolsets exactly as before). This harness bakes the switch **off** (another `Trim="true"`
    `RuntimeHostConfigurationOption`), so ILC folds the selector to `false`, dead-strips the
    `ToolsetConfigurationReader` subtree, and `System.Configuration` drops out of the closure entirely - the
@@ -145,18 +145,18 @@ bootstrap `dotnet new` to create the stock `console` and `classlib` templates, t
 `Microsoft.NET.Sdk` project with `new Project(...)`. Getting a full SDK project to evaluate under Native
 AOT surfaced three host responsibilities a real AOT MSBuild host must take on - each mirrored in the `.csproj`:
 
-- **Disable workload resolution.** `Microsoft.NET.Sdk` unconditionally imports the workload-locator SDKs
-  (`Microsoft.NET.SDK.WorkloadAutoImportPropsLocator` / `...WorkloadManifestTargetsLocator`), resolved by the
+- **Disable workload resolution.** `Unity-Billal-mesloub.NET.Sdk` unconditionally imports the workload-locator SDKs
+  (`Unity-Billal-mesloub.NET.SDK.WorkloadAutoImportPropsLocator` / `...WorkloadManifestTargetsLocator`), resolved by the
   dynamically-loaded NuGet/workload plugin resolver - the AOT-hard path baked off here, so reaching it fails
   observably with **MSB4282**. The SDK gates that whole import behind `MSBuildEnableWorkloadResolver`, so the
   test evaluates with that global property set to `false` (what an AOT host does); the project then resolves
-  only through the in-box, reflection-free `Microsoft.NET.Sdk`.
+  only through the in-box, reflection-free `Unity-Billal-mesloub.NET.Sdk`.
 - **Bundle `NuGet.Frameworks`.** SDK evaluation calls NuGet-backed property functions
-  (`[MSBuild]::GetTargetFrameworkIdentifier` and friends). `Microsoft.Build` references `NuGet.Frameworks`
+  (`[MSBuild]::GetTargetFrameworkIdentifier` and friends). `Unity-Billal-mesloub.Build` references `NuGet.Frameworks`
   with `PrivateAssets="all"` (in a real SDK it loads the copy next to `MSBuild.dll`), so it does not flow to
   the harness transitively; the harness adds its own reference to put it in the output and the AOT image.
-- **Root `Microsoft.Build.Utilities.Core`.** The SDK invokes
-  `[Microsoft.Build.Utilities.ToolLocationHelper]::...` property functions, and the allowlist resolves such
+- **Root `Unity-Billal-mesloub.Build.Utilities.Core`.** The SDK invokes
+  `[Unity-Billal-mesloub.Build.Utilities.ToolLocationHelper]::...` property functions, and the allowlist resolves such
   cross-assembly receivers by assembly-qualified name via `Type.GetType` - which under AOT only succeeds if
   the type's metadata is preserved. The harness references the (`IsAotCompatible`) assembly and roots it with
   `TrimmerRootAssembly`.
@@ -172,8 +172,8 @@ Native AOT. The harness bakes `EnableReflectiveTaskExecution=false`, so the refl
 (assembly probing, by-name type resolution) is trimmed away and an *un*registered task fails observably. A
 host instead pre-registers its tasks with the host task registry (see
 [task-class-registration-api.md](../../documentation/specs/task-class-registration-api.md)): the
-common built-in tasks through `Microsoft.Build.Tasks.BuiltInTasks.RegisterAll()`, and its own tasks through
-`Microsoft.Build.Utilities.Task.RegisterTask<T>()`. A registered task is constructed and bound with no
+common built-in tasks through `Unity-Billal-mesloub.Build.Tasks.BuiltInTasks.RegisterAll()`, and its own tasks through
+`Unity-Billal-mesloub.Build.Utilities.Task.RegisterTask<T>()`. A registered task is constructed and bound with no
 assembly loading or by-name type resolution, so `RegisteredBuiltInAndCustomTasks_Build_UnderAot` runs a real
 in-process build of a hand-authored project - `MakeDir`/`WriteLinesToFile`/`Copy` produce files, and a
 host-registered custom task's `[Output]` is bound back to a property - entirely under AOT.
@@ -199,8 +199,8 @@ avoids. Three host responsibilities (all mirrored by the `.csproj` switches and 
 
 The `DotnetTemplateAotTests.DotnetNew_*_BuildUnderAot_*` tests build the real `console`/`classlib` templates
 the same way: evaluation and the registered built-in tasks run, then the build fails observably at the first
-task from the SDK's own task assembly (`Microsoft.NET.Build.Tasks` - for example `AllowEmptyTelemetry` - which
-is not part of `Microsoft.Build.Tasks.Core` and so cannot be registered from this harness). That pins the
+task from the SDK's own task assembly (`Unity-Billal-mesloub.NET.Build.Tasks` - for example `AllowEmptyTelemetry` - which
+is not part of `Unity-Billal-mesloub.Build.Tasks.Core` and so cannot be registered from this harness). That pins the
 exact AOT boundary for a real SDK build: it degrades to a reported error, never a reflection crash.
 
 ### Host-registered SDK resolvers under AOT
@@ -254,12 +254,12 @@ behind feature switches baked off here, the `Enum.GetValues(Type)` IL3050 is a v
 above), and the property-function receiver `IL2078` was fixed by annotating the `FunctionBuilder` backing
 field. The `System.Configuration.ConfigurationManager` dependency (previously an exempted **IL2104**) is
 now trimmed out entirely: the config-file toolset reader is gated behind the
-`Microsoft.Build.EnableConfigurationFileToolsets` feature switch, baked off here so ILC dead-strips the
+`Unity-Billal-mesloub.Build.EnableConfigurationFileToolsets` feature switch, baked off here so ILC dead-strips the
 `ToolsetConfigurationReader` subtree and `System.Configuration` leaves the closure.
 
 ## Files
 
-- `Microsoft.Build.AotValidation.csproj` - the AOT, MSTest-on-MTP test project (ProjectReferences `Microsoft.Build`).
+- `Unity-Billal-mesloub.Build.AotValidation.csproj` - the AOT, MSTest-on-MTP test project (ProjectReferences `Unity-Billal-mesloub.Build`).
 - `HarnessEnvironment.cs` - `[ModuleInitializer]` that supplies `MSBUILD_EXE_PATH` (finding #1).
 - `ObjectModelAotTests.cs` - the object-model scenarios.
 - `PropertyFunctionAotTests.cs` - property-function behavior under AOT (reflective `Type`-taking members are unreachable; allowlisted receivers work).
