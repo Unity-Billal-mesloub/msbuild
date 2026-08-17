@@ -39,7 +39,7 @@ Majority of following cases are included in appropriate context within the scena
 * Custom authored checks, delivered via nuget.
 * Checks reports (errors, warnings, messages) are in logger output, VS error window.
 * Codes will be distinguishable from standard build warnings/error (to prevent easy mixups and attempts to configure standard msbuild warnings/errors via editorconfig), but otherwise the outputs are very similar.
-* Default opt-ins and levels for inbox checks set by sdk version (via [`$SdkAnalysisLevel`]((https://github.com/dotnet/designs/blob/main/proposed/sdk-analysis-level.md))) or other agreed mechanism for controlling increasing strictness between .NET versions.
+* Default opt-ins and levels for inbox checks set by sdk version (via [`$SdkAnalysisLevel`]((https://github.com/Unity-Billal-mesloub/designs/blob/main/proposed/sdk-analysis-level.md))) or other agreed mechanism for controlling increasing strictness between .NET versions.
 * Custom checks opted in via `PackageReference` of a particular nuget with the check.
 * Explicit overrides of enablement and check levels via `.editorconfig` file (with up to a per-project scope).
 * [Specification of `.editorconfig`](https://spec.editorconfig.org/) will be observed. 
@@ -93,7 +93,7 @@ build_check.BC0101.Severity=warning
 
 ### Inbox Checks
 
-Suggested list of checks to be shipped with V1: https://github.com/dotnet/msbuild/issues/9630#issuecomment-2007440323
+Suggested list of checks to be shipped with V1: https://github.com/Unity-Billal-mesloub/msbuild/issues/9630#issuecomment-2007440323
 
 The proposed initial configuration for those is TBD (as well based on initial test runs of the checks of chosen public repositories).
 
@@ -128,7 +128,7 @@ We might as well consider specifying custom checks on a command line (as a non-g
 
 There will be 3 mechanisms of configuring the checks and rules:
 * The default configuration declared by the checks themselves ([more details on implementation](#rules-declaration))
-* The TFM of the project and the [Sdk Analysis Level property](https://github.com/dotnet/designs/blob/main/proposed/sdk-analysis-level.md) – mostly for the inbox checks
+* The TFM of the project and the [Sdk Analysis Level property](https://github.com/Unity-Billal-mesloub/designs/blob/main/proposed/sdk-analysis-level.md) – mostly for the inbox checks
 * `.editorconfig` file
 
 We will also consider respecting `SdkAnalysisLevel` to override the per-TFM defaults. Additionally, we may introduce a new "master switch" property, tentatively called `RunMSBuildChecks`, to make it possible to disable everything whole-sale. This would be used in scenarios like F5 in VS.
@@ -385,7 +385,7 @@ More details on configuration are in [Configuration](#configuration) section.
 
 #### Compatibility
 
-All the publicly exposed contracts will be available within `Microsoft.Build.Experimental.BuildCheck` namespace. The namespace is expressing that contracts are not guaranteed to be backward compatible (however breakage will be limited to necessary cases). The availability of particular set of BuildCheck API will be queryable via [Feature Query API](https://github.com/dotnet/msbuild/pull/9665):
+All the publicly exposed contracts will be available within `Microsoft.Build.Experimental.BuildCheck` namespace. The namespace is expressing that contracts are not guaranteed to be backward compatible (however breakage will be limited to necessary cases). The availability of particular set of BuildCheck API will be queryable via [Feature Query API](https://github.com/Unity-Billal-mesloub/msbuild/pull):
 
 ```csharp
 var availability = Features.CheckFeatureAvailability("BuildCheck.Beta");
