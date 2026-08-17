@@ -8,7 +8,7 @@ slow build tasks.
 
 RAR is the Swiss army knife of assembly resolution. Very extensible and universal, exposing over 50 documented parameters and supporting 10 different
 locations where it searches for assemblies. Please see the [official documentation](https://learn.microsoft.com/visualstudio/msbuild/resolveassemblyreference-task) and
-the [ResolveAssemblyReference page](https://github.com/dotnet/msbuild/blob/main/documentation/wiki/ResolveAssemblyReference.md) for a detailed description
+the [ResolveAssemblyReference page](https://github.com/Unity-Billal-mesloub/msbuild/blob/main/documentation/wiki/ResolveAssemblyReference.md) for a detailed description
 of its features.
 
 While all of RAR's functionality has to be supported for backward compatibility, some parts are more relevant for modern builds than others. For example,
