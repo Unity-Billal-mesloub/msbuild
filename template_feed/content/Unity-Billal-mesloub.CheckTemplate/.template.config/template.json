@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Microsoft",
+  "author": "Unity-Billal-mesloub",
   "classifications": [
     "Common",
     "Library"
@@ -8,8 +8,8 @@
   "name": "MSBuild custom check skeleton project.",
   "generatorVersions": "[1.0.0.0-*)",
   "description": "A project for creating a MSBuild check library that targets .NET Standard",
-  "groupIdentity": "Microsoft.CheckTemplate",
-  "identity": "Microsoft.CheckTemplate",
+  "groupIdentity": "Unity-Billal-mesloub.CheckTemplate",
+  "identity": "Unity-Billal-mesloub.CheckTemplate",
   "shortName": "msbuildcheck",
   "tags": {
     "language": "C#",
@@ -23,13 +23,13 @@
     }
   ],
   "symbols": {
-    "MicrosoftBuildVersion": {
+    "Unity-Billal-mesloubBuildVersion": {
       "type": "parameter",
       "description": "Overrides the default Microsoft.Build version where check's interfaces are placed",
       "datatype": "text",
       "defaultValue": "18.10.0",
-      "replaces": "1.0.0-MicrosoftBuildPackageVersion",
-      "displayName": "Microsoft.Build default package version override"
+      "replaces": "1.0.0-Unity-Billal-mesloubBuildPackageVersion",
+      "displayName": "Unity-Billal-mesloub.Build default package version override"
     }
   },
   "postActions": [
