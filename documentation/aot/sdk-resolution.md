@@ -6,7 +6,7 @@ This document has two parts:
 
 1. **How SDK resolution works** - where resolver manifests come from, what the built-in
    fallback is, and how discovered resolvers are matched to a project's `Sdk` (including
-   `<Project Sdk="Microsoft.NET.Sdk">` and a project with no `Sdk` at all).
+   `<Project Sdk="Unity-Billal-mesloub.NET.Sdk">` and a project with no `Sdk` at all).
 2. **A plan** to stop the SDK-resolution path from surfacing `[RequiresUnreferencedCode]`
    all the way up to the `Project` constructors, and instead **fail observably** (via
    `ProjectFileErrorUtilities.ThrowInvalidProjectFile`) when an SDK actually needs a
@@ -25,7 +25,7 @@ references drift - search by member name.
 An SDK reference enters evaluation in one of these forms, all of which become an
 `SdkReference` on a (possibly implicit) `ProjectImportElement`:
 
-* `<Project Sdk="Microsoft.NET.Sdk">` or `Sdk="Name/Version"` - MSBuild synthesizes two
+* `<Project Sdk="Unity-Billal-mesloub.NET.Sdk">` or `Sdk="Name/Version"` - MSBuild synthesizes two
   **implicit imports**: `Sdk.props` at the very top of the project and `Sdk.targets` at the
   very bottom, each carrying the `SdkReference`.
 * `<Sdk Name="..." Version="..." />` element - same implicit-import behavior.
@@ -89,7 +89,7 @@ sdkPath = Path.Combine(BuildEnvironmentHelper.Instance.MSBuildSDKsPath, sdk.Name
 
 On **.NET** (`dotnet build`), `ResolveSdk` asks the `DefaultSdkResolver` **first** (the
 `#if NET` + Wave17_10 block at the top of `SdkResolverService.ResolveSdk`), as a perf
-optimization and for parity with the Framework `Microsoft.DotNet.MSBuildSdkResolver`. So
+optimization and for parity with the Framework `Unity-Billal-mesloub.DotNet.MSBuildSdkResolver`. So
 **in-box SDKs are resolved by a directory probe before any plugin assembly is loaded.**
 
 ### 1.4 How resolvers are matched to a project's SDK
@@ -110,7 +110,7 @@ properties, and items). So a resolver opts into a name family by declaring
 
 ```mermaid
 flowchart TD
-    A["Sdk reference (e.g. Microsoft.NET.Sdk)"] --> B{".NET? default resolver first"}
+    A["Sdk reference (e.g. Unity-Billal-mesloub.NET.Sdk)"] --> B{".NET? default resolver first"}
     B -- "in-box: MSBuildSDKsPath\\Name\\Sdk exists" --> OK["Resolved (no assembly loaded)"]
     B -- "not in-box / Framework" --> C[Register manifests<br/>read XML, build regex registry]
     C --> D{"Specific manifests<br/>ResolvableSdkRegex.IsMatch(name)?"}
@@ -126,14 +126,14 @@ flowchart TD
 
 ### 1.5 Worked examples
 
-* **`<Project Sdk="Microsoft.NET.Sdk">` on `dotnet build`:** the `DefaultSdkResolver`
-  probes `<dotnet>\sdk\<ver>\Sdks\Microsoft.NET.Sdk\Sdk`, which exists, so it resolves with
-  **no plugin assembly loaded**. (On `MSBuild.exe`/Framework, `Microsoft.DotNet.MSBuildSdkResolver`
+* **`<Project Sdk="Unity-Billal-mesloub.NET.Sdk">` on `dotnet build`:** the `DefaultSdkResolver`
+  probes `<dotnet>\sdk\<ver>\Sdks\Unity-Billal-mesloub.NET.Sdk\Sdk`, which exists, so it resolves with
+  **no plugin assembly loaded**. (On `MSBuild.exe`/Framework, `Unity-Billal-mesloub.DotNet.MSBuildSdkResolver`
   - a plugin - does the equivalent in-box lookup plus global.json/workload logic.)
 * **`<Project Sdk="MSTest.Sdk/3.8.3">` (a NuGet-delivered SDK):** the default resolver fails
-  (not under `MSBuildSDKsPath`), so the general `Microsoft.Build.NuGetSdkResolver` is
+  (not under `MSBuildSDKsPath`), so the general `Unity-Billal-mesloub.Build.NuGetSdkResolver` is
   **loaded by reflection** and downloads/resolves the package.
-* **A workload SDK:** the workload resolver (`Microsoft.NET.Sdk.WorkloadMSBuildSdkResolver`)
+* **A workload SDK:** the workload resolver (`Unity-Billal-mesloub.NET.Sdk.WorkloadMSBuildSdkResolver`)
   - a plugin - handles it.
 * **No `Sdk` at all:** `ResolveSdk` is never invoked.
 
@@ -189,7 +189,7 @@ the trim/AOT analyzers should **not** see a `[RequiresUnreferencedCode]` chain r
 resolution running up into the `Project` constructors. Instead:
 
 * **In-box SDK resolution stays trim-safe.** The `DefaultSdkResolver` (a directory probe, no
-  reflection) keeps working, so `<Project Sdk="Microsoft.NET.Sdk">` and friends evaluate
+  reflection) keeps working, so `<Project Sdk="Unity-Billal-mesloub.NET.Sdk">` and friends evaluate
   under Native AOT.
 * **Dynamically loaded resolvers fail observably.** When an SDK can only be resolved by a
   plugin resolver that must be loaded by reflection (NuGet, workload, custom), the engine
@@ -223,10 +223,10 @@ internal static bool EnableSdkResolverDynamicLoading =>
         : EnableSdkResolverDynamicLoadingByDefault;
 ```
 
-Add the trimmer substitution to [Microsoft.Build.Framework.csproj](../../src/Framework/Microsoft.Build.Framework.csproj):
+Add the trimmer substitution to [Unity-Billal-mesloub.Build.Framework.csproj](../../src/Framework/Microsoft.Build.Framework.csproj):
 
 ```xml
-<RuntimeHostConfigurationOption Include="Microsoft.Build.EnableSdkResolverDynamicLoading"
+<RuntimeHostConfigurationOption Include="Unity-Billal-mesloub.Build.EnableSdkResolverDynamicLoading"
                                 Value="false" Trim="true" />
 ```
 
@@ -330,16 +330,16 @@ see the
 
 ### 2.6 Step 5 - tests and validation
 
-* **Unit tests** (`Microsoft.Build.Engine.UnitTests`, SDK-resolution fixtures): with the
+* **Unit tests** (`Unity-Billal-mesloub.Build.Engine.UnitYTests`, SDK-resolution fixtures): with the
   AppContext switch off, a project whose SDK only a manifest resolver can resolve throws
   `InvalidProjectFileException` carrying the new code at the `Sdk` location; an in-box SDK
   resolved by `DefaultSdkResolver` still succeeds with the switch off.
 * **AOT harness** ([aot-validation/](../../src/aot-validation/)): add a test that evaluates a real
-  `<Project Sdk="Microsoft.NET.Sdk">` end to end under Native AOT (now reachable because the
+  `<Project Sdk="Unity-Billal-mesloub.NET.Sdk">` end to end under Native AOT (now reachable because the
   RUC is gone and in-box resolution is reflection-free), and a test asserting that a
   NuGet-SDK project throws the observable error under AOT. These replace the harness's current
   `#pragma warning disable IL2026`.
-* **Warning check**: rebuild `Microsoft.Build` for .NETCoreApp and confirm zero new IL warnings
+* **Warning check**: rebuild `Unity-Billal-mesloub.Build` for .NETCoreApp and confirm zero new IL warnings
   - the `[FeatureGuard]` satisfies the analyzer and the leaves keep their RUC.
 
 ### 2.7 Payoff and risk
