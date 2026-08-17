@@ -36,121 +36,121 @@ Change wave checks around features will be removed in the release that accompani
 ## Current Rotation of Change Waves
 
 ### 18.11
-- [XmlPeek, XmlPoke, and XslTransformation default to prohibiting embedded DTDs](https://github.com/dotnet/msbuild/pull/14285)
-- [Out-of-proc communication uses larger read-ahead buffers and pre-buffers TaskHost packet bodies to reduce pipe reads.](https://github.com/dotnet/msbuild/pull/14505)
-- [Restore no longer discards a ProjectRootElementCache that reloads changed files from disk, so the build that follows an implicit restore does not re-parse the import closure.](https://github.com/dotnet/msbuild/pull/14558)
+- [XmlPeek, XmlPoke, and XslTransformation default to prohibiting embedded DTDs](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Out-of-proc communication uses larger read-ahead buffers and pre-buffers TaskHost packet bodies to reduce pipe reads.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Restore no longer discards a ProjectRootElementCache that reloads changed files from disk, so the build that follows an implicit restore does not re-parse the import closure.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 18.10
-- [Resolve relative project paths against the Unix logical current directory from `PWD`, so builds under symlinked directories produce stable project full paths and related output paths.](https://github.com/dotnet/msbuild/pull/13752)
-- [Restore passes ExcludeRestorePackageImports=true as a global property so NuGet's restore no longer triggers a second evaluation of every project.](https://github.com/dotnet/msbuild/issues/14273)
-- [`-getProperty`/`-getItem` (without a target) stop evaluation after the pass that produces the requested data instead of running a full evaluation, avoiding later passes such as target registration.](https://github.com/dotnet/msbuild/pull/14290)
+- [Resolve relative project paths against the Unix logical current directory from `PWD`, so builds under symlinked directories produce stable project full paths and related output paths.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Restore passes ExcludeRestorePackageImports=true as a global property so NuGet's restore no longer triggers a second evaluation of every project.](https://github.com/Unity-Billal-mesloub/msbuild/issues)
+- [`-getProperty`/`-getItem` (without a target) stop evaluation after the pass that produces the requested data instead of running a full evaluation, avoiding later passes such as target registration.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 
 ### 18.9
-- [GenerateResource: typed ResX data/metadata entries in Mark-of-the-Web files are now treated as untrusted and blocked with MSB3821; unblock the file (or set MSBUILDDISABLEFEATURESFROMVERSION=18.9) to restore prior behavior. ResXFileRef entries are always blocked regardless of this wave.](https://github.com/dotnet/msbuild/pull/14015)
-- [TaskHost named-pipe buffers default to 1 MB (was 128 KB), reducing send backpressure for large TaskHostConfiguration packets. Tunable via MSBUILDNODECONNECTIONBUFFERSIZE](https://github.com/dotnet/msbuild/pull/14094)
+- [GenerateResource: typed ResX data/metadata entries in Mark-of-the-Web files are now treated as untrusted and blocked with MSB3821; unblock the file (or set MSBUILDDISABLEFEATURESFROMVERSION=18.9) to restore prior behavior. ResXFileRef entries are always blocked regardless of this wave.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [TaskHost named-pipe buffers default to 1 MB (was 128 KB), reducing send backpressure for large TaskHostConfiguration packets. Tunable via MSBUILDNODECONNECTIONBUFFERSIZE](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 18.8
-- [RAR task: across multiple input properties, resolve relative paths against the project directory (not the process current directory)](https://github.com/dotnet/msbuild/pull/13319)
-- [Console, parallel console, and terminal loggers print the paths of log files written by registered loggers (e.g. file logger and binary logger) as part of the end-of-build summary.](https://github.com/dotnet/msbuild/pull/13577)
+- [RAR task: across multiple input properties, resolve relative paths against the project directory (not the process current directory)](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Console, parallel console, and terminal loggers print the paths of log files written by registered loggers (e.g. file logger and binary logger) as part of the end-of-build summary.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 18.7
-- [Copy task retries on ERROR_ACCESS_DENIED on non-Windows platforms to handle transient lock conflicts (e.g. macOS CoW filesystems)](https://github.com/dotnet/msbuild/issues/13463)
-- [Fix ASP.NET WebSite projects to resolve netstandard2.0 dependencies](https://github.com/dotnet/msbuild/pull/13058) - Pass TargetFrameworkVersion to RAR task and copy netstandard.dll facade for .NET Framework 4.7.1+ web projects.
+- [Copy task retries on ERROR_ACCESS_DENIED on non-Windows platforms to handle transient lock conflicts (e.g. macOS CoW filesystems)](https://github.com/Unity-Billal-mesloub/msbuild/issues)
+- [Fix ASP.NET WebSite projects to resolve netstandard2.0 dependencies](https://github.com/Unity-Billal-mesloub/msbuild/pull) - Pass TargetFrameworkVersion to RAR task and copy netstandard.dll facade for .NET Framework 4.7.1+ web projects.
 
 ### 18.6
-- [AbsolutePath.GetCanonicalForm optimization - avoid expensive Path.GetFullPath calls when paths don't need canonicalization](https://github.com/dotnet/msbuild/pull/13369)
-- [TaskHostTask forwards request-level global properties (e.g. MSBuildRestoreSessionId) to out-of-proc TaskHost in -mt mode](https://github.com/dotnet/msbuild/pull/13443)
-- [Fix ShouldTreatWarningAsError in OOP TaskHost checking wrong collection (WarningsAsMessages instead of WarningsAsErrors)](https://github.com/dotnet/msbuild/issues/11952)
-- [Fix ToolTask hang when tool spawns grandchild processes that inherit stdout/stderr pipe handles](https://github.com/dotnet/msbuild/issues/2981)
+- [AbsolutePath.GetCanonicalForm optimization - avoid expensive Path.GetFullPath calls when paths don't need canonicalization](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [TaskHostTask forwards request-level global properties (e.g. MSBuildRestoreSessionId) to out-of-proc TaskHost in -mt mode](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Fix ShouldTreatWarningAsError in OOP TaskHost checking wrong collection (WarningsAsMessages instead of WarningsAsErrors)](https://github.com/Unity-Billal-mesloub/msbuild/issues)
+- [Fix ToolTask hang when tool spawns grandchild processes that inherit stdout/stderr pipe handles](https://github.com/Unity-Billal-mesloub/msbuild/issues)
 
 ### 18.5
-- [FindUnderPath and AssignTargetPath tasks no longer throw on invalid path characters when using TaskEnvironment.GetAbsolutePath](https://github.com/dotnet/msbuild/pull/13069)
-- [AssignTargetPath on Linux respects case sensitivity of the file system instead of always ignoring case](https://github.com/dotnet/msbuild/pull/13069)
+- [FindUnderPath and AssignTargetPath tasks no longer throw on invalid path characters when using TaskEnvironment.GetAbsolutePath](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [AssignTargetPath on Linux respects case sensitivity of the file system instead of always ignoring case](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 18.4
-- [Start throwing on null or empty paths in MultiProcess and MultiThreaded Task Environment Drivers.](https://github.com/dotnet/msbuild/pull/12914)
+- [Start throwing on null or empty paths in MultiProcess and MultiThreaded Task Environment Drivers.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ## Change Waves No Longer In Rotation
 
 ### 16.8
-- [Enable NoWarn](https://github.com/dotnet/msbuild/pull/5671)
-- [Truncate Target/Task skipped log messages to 1024 chars](https://github.com/dotnet/msbuild/pull/5553)
-- [Don't expand full drive globs with false condition](https://github.com/dotnet/msbuild/pull/5669)
+- [Enable NoWarn](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Truncate Target/Task skipped log messages to 1024 chars](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Don't expand full drive globs with false condition](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 16.10
-- [Error when a property expansion in a condition has whitespace](https://github.com/dotnet/msbuild/pull/5672)
-- [Allow Custom CopyToOutputDirectory Location With TargetPath](https://github.com/dotnet/msbuild/pull/6237)
-- [Allow users that have certain special characters in their username to build successfully when using exec](https://github.com/dotnet/msbuild/pull/6223)
-- [Fail restore operations when an SDK is unresolveable](https://github.com/dotnet/msbuild/pull/6430)
-- [Optimize glob evaluation](https://github.com/dotnet/msbuild/pull/6151)
+- [Error when a property expansion in a condition has whitespace](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Allow Custom CopyToOutputDirectory Location With TargetPath](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Allow users that have certain special characters in their username to build successfully when using exec](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Fail restore operations when an SDK is unresolveable](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Optimize glob evaluation](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 17.0
-- [Scheduler should honor BuildParameters.DisableInprocNode](https://github.com/dotnet/msbuild/pull/6400)
-- [Don't compile globbing regexes on .NET Framework](https://github.com/dotnet/msbuild/pull/6632)
-- [Default to transitively copying content items](https://github.com/dotnet/msbuild/pull/6622)
-- [Reference assemblies are now no longer placed in the `bin` directory by default](https://github.com/dotnet/msbuild/pull/6560) (reverted [here](https://github.com/dotnet/msbuild/pull/6718) and brought back [here](https://github.com/dotnet/msbuild/pull/7075))
-- [Improve debugging experience: add global switch MSBuildDebugEngine; Inject binary logger from BuildManager; print static graph as .dot file](https://github.com/dotnet/msbuild/pull/6639)
-- [Fix deadlock in BuildManager vs LoggingService](https://github.com/dotnet/msbuild/pull/6837)
-- [Optimize diag level for file logger and console logger](https://github.com/dotnet/msbuild/pull/7026)
-- [Optimized immutable files up to date checks](https://github.com/dotnet/msbuild/pull/6974)
-- [Add Microsoft.IO.Redist for directory enumeration](https://github.com/dotnet/msbuild/pull/6771)
-- [Process-wide caching of ToolsetConfigurationSection](https://github.com/dotnet/msbuild/pull/6832)
+- [Scheduler should honor BuildParameters.DisableInprocNode](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Don't compile globbing regexes on .NET Framework](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Default to transitively copying content items](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Reference assemblies are now no longer placed in the `bin` directory by default](https://github.com/Unity-Billal-mesloub/msbuild/pull) (reverted [here](https://github.com/Unity-Billal-mesloub/msbuild/pull) and brought back [here](https://github.com/Unity-Billal-mesloub/msbuild/pull))
+- [Improve debugging experience: add global switch MSBuildDebugEngine; Inject binary logger from BuildManager; print static graph as .dot file](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Fix deadlock in BuildManager vs LoggingService](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Optimize diag level for file logger and console logger](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Optimized immutable files up to date checks](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Add Unity-Billal-mesloub.IO.Redist for directory enumeration](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Process-wide caching of ToolsetConfigurationSection](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 - [Normalize RAR output paths](https://github.com/dotnet/msbuild/pull/6533)
 
 ### 17.4
 
-- [Respect deps.json when loading assemblies](https://github.com/dotnet/msbuild/pull/7520)
-- [Consider `Platform` as default during Platform Negotiation](https://github.com/dotnet/msbuild/pull/7511)
-- [Adding accepted SDK name match pattern to SDK manifests](https://github.com/dotnet/msbuild/pull/7597)
-- [Throw warning indicating invalid project types](https://github.com/dotnet/msbuild/pull/7708)
-- [MSBuild server](https://github.com/dotnet/msbuild/pull/7634)
+- [Respect deps.json when loading assemblies](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Consider `Platform` as default during Platform Negotiation](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Adding accepted SDK name match pattern to SDK manifests](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Throw warning indicating invalid project types](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [MSBuild server](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 17.6
 
-- [Parse invalid property under target](https://github.com/dotnet/msbuild/pull/8190)
-- [Eliminate project string cache](https://github.com/dotnet/msbuild/pull/7965)
-- [Log an error when no provided search path for an import exists](https://github.com/dotnet/msbuild/pull/8095)
-- [Log assembly loads](https://github.com/dotnet/msbuild/pull/8316)
-- [AnyHaveMetadataValue returns false when passed an empty list](https://github.com/dotnet/msbuild/pull/8603)
-- [Log item self-expansion](https://github.com/dotnet/msbuild/pull/8581)
+- [Parse invalid property under target](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Eliminate project string cache](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Log an error when no provided search path for an import exists](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Log assembly loads](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [AnyHaveMetadataValue returns false when passed an empty list](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Log item self-expansion](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 17.8
 
-- [[RAR] Don't do I/O on SDK-provided references](https://github.com/dotnet/msbuild/pull/8688)
-- [Delete destination file before copy](https://github.com/dotnet/msbuild/pull/8685)
-- [Moving from SHA1 to SHA256 for Hash task](https://github.com/dotnet/msbuild/pull/8812)
-- [Deprecating custom derived BuildEventArgs](https://github.com/dotnet/msbuild/pull/8917) - feature can be opted out only if [BinaryFormatter](https://learn.microsoft.com/dotnet/api/system.runtime.serialization.formatters.binary.binaryformatter) is allowed at runtime by editing `MSBuild.runtimeconfig.json`
+- [[RAR] Don't do I/O on SDK-provided references](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Delete destination file before copy](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Moving from SHA1 to SHA256 for Hash task](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Deprecating custom derived BuildEventArgs](https://github.com/Unity-Billal-mesloub/msbuild/pull) - feature can be opted out only if [BinaryFormatter](https://learn.microsoft.com/dotnet/api/system.runtime.serialization.formatters.binary.binaryformatter) is allowed at runtime by editing `MSBuild.runtimeconfig.json`
 
 ### 17.10
 
-- [AppDomain configuration is serialized without using BinFmt](https://github.com/dotnet/msbuild/pull/9320) - feature can be opted out only if [BinaryFormatter](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.formatters.binary.binaryformatter) is allowed at runtime by editing `MSBuild.runtimeconfig.json`. **Please note that [any usage of BinaryFormatter is insecure](https://learn.microsoft.com/dotnet/standard/serialization/binaryformatter-security-guide).**
-- [Warning on serialization custom events by default in .NET framework](https://github.com/dotnet/msbuild/pull/9318)
-- [Cache SDK resolver data process-wide](https://github.com/dotnet/msbuild/pull/9335)
-- [Target parameters will be unquoted](https://github.com/dotnet/msbuild/pull/9452), meaning  the ';' symbol in the parameter target name will always be treated as separator
-- [Add Link metadata to Resources in AssignLinkMetadata target](https://github.com/dotnet/msbuild/pull/9464)
-- [Change Version switch output to finish with a newline](https://github.com/dotnet/msbuild/pull/9485)
-- [Load NuGet.Frameworks into secondary AppDomain (MSBuild.exe only)](https://github.com/dotnet/msbuild/pull/9446)
-- [Update Traits when environment has been changed](https://github.com/dotnet/msbuild/pull/9655)
-- [Exec task does not trim leading whitespaces for ConsoleOutput](https://github.com/dotnet/msbuild/pull/9722)
+- [AppDomain configuration is serialized without using BinFmt](https://github.com/Unity-Billal-mesloub/msbuild/pull) - feature can be opted out only if [BinaryFormatter](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.formatters.binary.binaryformatter) is allowed at runtime by editing `MSBuild.runtimeconfig.json`. **Please note that [any usage of BinaryFormatter is insecure](https://learn.microsoft.com/dotnet/standard/serialization/binaryformatter-security-guide).**
+- [Warning on serialization custom events by default in .NET framework](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Cache SDK resolver data process-wide](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Target parameters will be unquoted](https://github.com/Unity-Billal-mesloub/msbuild/pull), meaning  the ';' symbol in the parameter target name will always be treated as separator
+- [Add Link metadata to Resources in AssignLinkMetadata target](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Change Version switch output to finish with a newline](https://github.com/dotnet/Unity-Billal-mesloub/pull)
+- [Load NuGet.Frameworks into secondary AppDomain (MSBuild.exe only)](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Update Traits when environment has been changed](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Exec task does not trim leading whitespaces for ConsoleOutput](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 - [Introduce [MSBuild]::StableStringHash overloads](https://github.com/dotnet/msbuild/issues/9519)
-- [Keep the encoding of standard output & error consistent with the console code page for ToolTask](https://github.com/dotnet/msbuild/pull/9539)
+- [Keep the encoding of standard output & error consistent with the console code page for ToolTask](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 17.12
 
-- [Log TaskParameterEvent for scalar parameters](https://github.com/dotnet/msbuild/pull/9908)
-- [Convert.ToString during a property evaluation uses the InvariantCulture for all types](https://github.com/dotnet/msbuild/pull/9874)
-- [Fix oversharing of build results in ResultsCache](https://github.com/dotnet/msbuild/pull/9987)
-- [Add ParameterName and PropertyName to TaskParameterEventArgs](https://github.com/dotnet/msbuild/pull/10130)
-- [Emit eval props if requested by any sink](https://github.com/dotnet/msbuild/pull/10243)
-- [Load Microsoft.DotNet.MSBuildSdkResolver into default load context (MSBuild.exe only)](https://github.com/dotnet/msbuild/pull/10603)
+- [Log TaskParameterEvent for scalar parameters](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Convert.ToString during a property evaluation uses the InvariantCulture for all types](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Fix oversharing of build results in ResultsCache](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Add ParameterName and PropertyName to TaskParameterEventArgs](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Emit eval props if requested by any sink](https://github.com/Unity-Billal-mesloub/msbuild/pull)
+- [Load Microsoft.DotNet.MSBuildSdkResolver into default load context (MSBuild.exe only)](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 17.14
 
-- ~[.SLNX support - use the new parser for .sln and .slnx](https://github.com/dotnet/msbuild/pull/10836)~ reverted after compat problems discovered
-- ~~[Support custom culture in RAR](https://github.com/dotnet/msbuild/pull/11000)~~ - see [11607](https://github.com/dotnet/msbuild/pull/11607) for details
-- [VS Telemetry](https://github.com/dotnet/msbuild/pull/11255)
+- ~[.SLNX support - use the new parser for .sln and .slnx](https://github.com/Unity-Billal-mesloub/msbuild/pull)~ reverted after compat problems discovered
+- ~~[Support custom culture in RAR](https://github.com/dotnet/msbuild/pull)~~ - see [11607](https://github.com/Unity-Billal-mesloub/msbuild/pull) for details
+- [VS Telemetry](https://github.com/Unity-Billal-mesloub/msbuild/pull)
 
 ### 18.3
 
-- [Replace Transactional property with ChangeWave control, implement atomic file replacement with retry logic, and update tests.](https://github.com/dotnet/msbuild/pull/12627)
+- [Replace Transactional property with ChangeWave control, implement atomic file replacement with retry logic, and update tests.](https://github.com/Unity-Billal-mesloub/msbuild/pull)
