@@ -45,15 +45,15 @@ Before you contribute, please read through the contributing and developer guides
    - [.NET Core](documentation/wiki/Building-Testing-and-Debugging-on-.Net-Core-MSBuild.md)
    - [Full Framework](documentation/wiki/Building-Testing-and-Debugging-on-Full-Framework-MSBuild.md)
 
-* See our [help wanted issues](https://github.com/dotnet/msbuild/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) for a list of issues we think are great to onboard new developers.
+* See our [help wanted issues](https://github.com/Unity-Billal-mesloub/msbuild/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) for a list of issues we think are great to onboard new developers.
    - **Note:** Please leave a comment asking to be assigned the issue if you want to work on it.
 * See our [label documentation](documentation/wiki/Labels.md) for descriptions of labels we use throughout the repo.
 
 ### Other ways to contribute
 We encourage any contributions you decide to make to the repo!
 
-* [File an issue](https://github.com/dotnet/msbuild/issues/new/choose)
-* [Start a discussion](https://github.com/dotnet/msbuild/discussions)
+* [File an issue](https://github.com/Unity-Billal-mesloub/msbuild/issues/new/choose)
+* [Start a discussion](https://github.com/Unity-Billal-mesloub/msbuild/discussions)
 
 ### MSBuild Components
 
@@ -67,6 +67,3 @@ We encourage any contributions you decide to make to the repo!
 
 * **Microsoft.Build.Utilities**. The [Microsoft.Build.Utilities](https://docs.microsoft.com/dotnet/api/microsoft.build.utilities) namespace provides helper classes that you can use to create your own MSBuild loggers and tasks.
 
-### License
-
-MSBuild is licensed under the [MIT license](LICENSE).
