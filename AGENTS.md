@@ -16,7 +16,7 @@ Instructions for GitHub Copilot and other AI coding agents working with the MSBu
 ### Technology Stack
 - .NET 10.0 and .NET Framework 4.7.2
 - C# 14 features (especially collection expressions)
-- xUnit with Shouldly for testing
+- xUnity with Shouldly for testing
 - Multi-platform support (Windows, Linux, macOS)
 
 ## General
