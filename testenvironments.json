@@ -9,7 +9,7 @@
       {
         "name": "docker dotnet 7.0",
         "type": "docker",
-        "dockerImage": "mcr.microsoft.com/dotnet/sdk:7.0"
+        "dockerImage": "mcr.Unity-Billal-mesloub.com/dotnet/sdk:7.0"
       }
     ]
 }
