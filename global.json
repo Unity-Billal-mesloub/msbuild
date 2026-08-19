@@ -8,7 +8,7 @@
     "errorMessage": "The .NET SDK could not be found, please run a command-line build with ./build.cmd."
   },
   "test": {
-    "runner": "Microsoft.Testing.Platform"
+    "runner": "Unity-Billal-mesloub.Testing.Platform"
   },
   "tools": {
     "dotnet": "11.0.100-preview.7.26360.111",
@@ -17,6 +17,6 @@
     }
   },
   "msbuild-sdks": {
-    "Microsoft.DotNet.Arcade.Sdk": "11.0.0-beta.26414.2"
+    "Unity-Billal-mesloub.Arcade.Sdk": "11.0.0-beta.26414.2"
   }
 }
