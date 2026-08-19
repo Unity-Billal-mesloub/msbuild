@@ -12,7 +12,7 @@
     <Project Path="src/Package/Localization/Localization.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Package/Microsoft.Build.UnGAC/Microsoft.Build.UnGAC.csproj">
+    <Project Path="src/Package/Unity-Billal-mesloub.Build.UnGAC/Microsoft.Build.UnGAC.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
     <Project Path="src/Package/MSBuild.VSSetup.Arm64/MSBuild.VSSetup.Arm64.csproj">
@@ -45,26 +45,26 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="NuGet.Config" />
-    <File Path="src/Shared/UnitTests/xunit.runner.json" />
+    <File Path="src/Shared/UnitTests/xunity.runner.json" />
     <File Path="testenvironments.json" />
   </Folder>
-  <Project Path="src/Build.OM.UnitTests/Microsoft.Build.Engine.OM.UnitTests.csproj">
+  <Project Path="src/Build.OM.UnitTests/Unity-Billal-mesloub.Build.Engine.OM.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Build.UnitTests/Microsoft.Build.Engine.UnitTests.csproj">
+  <Project Path="src/Build.UnitTests/Unity-Billal-mesloub.Build.Engine.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Build/Microsoft.Build.csproj">
+  <Project Path="src/Build/Unity-Billal-mesloub.Build.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/BuildCheck.UnitTests/Microsoft.Build.BuildCheck.UnitTests.csproj">
+  <Project Path="src/BuildCheck.UnitTests/Unity-Billal-mesloub.Build.BuildCheck.UnitTests.csproj">
     <Platform Solution="*|ARM64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Framework.UnitTests/Microsoft.Build.Framework.UnitTests.csproj">
+  <Project Path="src/Framework.UnitTests/Unity-Billal-mesloub.Build.Framework.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Framework/Microsoft.Build.Framework.csproj">
+  <Project Path="src/Framework/Unity-Billal-mesloub.Build.Framework.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
   <Project Path="src/MSBuild.Benchmarks/MSBuild.Benchmarks.csproj" Id="7ab529db-7954-4d4f-a186-7544008a3b46">
@@ -82,10 +82,10 @@
     <Platform Solution="*|ARM64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/MSBuild.EndToEnd.Tests/Microsoft.Build.EndToEnd.Tests.csproj">
+  <Project Path="src/MSBuild.EndToEnd.Tests/Unity-Billal-mesloub.Build.EndToEnd.Tests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/MSBuild.UnitTests/Microsoft.Build.CommandLine.UnitTests.csproj">
+  <Project Path="src/MSBuild.UnitTests/Unity-Billal-mesloub.Build.CommandLine.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
   <Project Path="src/MSBuild/MSBuild.csproj">
@@ -107,26 +107,26 @@
   <Project Path="src/StringTools/StringTools.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Tasks.UnitTests/Microsoft.Build.Tasks.UnitTests.csproj">
+  <Project Path="src/Tasks.UnitTests/Unity-Billal-mesloub.Build.Tasks.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Tasks/Microsoft.Build.Tasks.csproj">
+  <Project Path="src/Tasks/Unity-Billal-mesloub.Build.Tasks.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
   <Project Path="src/TaskAnalyzer/TaskAnalyzer.csproj" />
   <Project Path="src/TaskAnalyzer.Tests/TaskAnalyzer.Tests.csproj" />
-  <Project Path="src/UnitTests.Shared/Microsoft.Build.UnitTests.Shared.csproj">
+  <Project Path="src/UnitTests.Shared/Unity-Billal-mesloub.Build.UnitTests.Shared.csproj">
     <Platform Solution="*|ARM64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Utilities.UnitTests/Microsoft.Build.Utilities.UnitTests.csproj">
+  <Project Path="src/Utilities.UnitTests/Unity-Billal-mesloub.Build.Utilities.UnitTests.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="src/Utilities/Microsoft.Build.Utilities.csproj">
+  <Project Path="src/Utilities/Unity-Billal-mesloub.Build.Utilities.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
   <Project Path="src/Xunit.NetCore.Extensions/Xunit.NetCore.Extensions.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="template_feed/Microsoft.Build.Templates.csproj" />
+  <Project Path="template_feed/Unity-Billal-mesloub.Build.Templates.csproj" />
 </Solution>
