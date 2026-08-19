@@ -28,7 +28,7 @@
     <EditorConfigFiles Include="$(MSBuildThisFileDirectory)eng/Common.Test.globalconfig" />
   </ItemGroup>
 
-  <Import Project="Sdk.targets" Sdk="Microsoft.DotNet.Arcade.Sdk" />
+  <Import Project="Sdk.targets" Sdk="Unity-Billal-mesloub.DotNet.Arcade.Sdk" />
   <Import Project="$(RepositoryEngineeringDir)packaging.targets" Condition="'$(IsPackable)' == 'true'" />
 
   <!-- Put it after Sdk.targets imports to override values from StrongName.targets. It's needed to avoid NGEN validation issues on VS exp insertions.  -->
