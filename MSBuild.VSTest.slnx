@@ -6,7 +6,7 @@
     Samples/Package which aren't part of the test surface) plus the
     sibling *.UnitTests.VSTest.csproj wrappers. The wrappers import their
     original test csproj but force the VSTest runner stack (CTS does not
-    yet work with Microsoft.Testing.Platform) and pin the TFM to
+    yet work with Unity-Billal-mesloub.Testing.Platform) and pin the TFM to
     $(LatestDotNetCoreForMSBuild) so a single `dotnet build MSBuild.VSTest.slnx`
     succeeds.
 
@@ -25,10 +25,10 @@
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/Production/">
-    <Project Path="src/Build/Microsoft.Build.csproj">
+    <Project Path="src/Build/Unity-Billal-mesloub.Build.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Framework/Microsoft.Build.Framework.csproj">
+    <Project Path="src/Framework/Unity-Billal-mesloub.Build.Framework.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
     <Project Path="src/MSBuild/MSBuild.csproj">
@@ -43,15 +43,15 @@
     <Project Path="src/StringTools/StringTools.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Tasks/Microsoft.Build.Tasks.csproj">
+    <Project Path="src/Tasks/Unity-Billal-mesloub.Build.Tasks.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Utilities/Microsoft.Build.Utilities.csproj">
+    <Project Path="src/Utilities/Unity-Billal-mesloub.Build.Utilities.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
   </Folder>
   <Folder Name="/TestSupport/">
-    <Project Path="src/UnitTests.Shared/Microsoft.Build.UnitTests.Shared.csproj">
+    <Project Path="src/UnitTests.Shared/Unity-Billal-mesloub.Build.UnitTests.Shared.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
     <Project Path="src/Xunit.NetCore.Extensions/Xunit.NetCore.Extensions.csproj">
@@ -59,28 +59,28 @@
     </Project>
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="src/Build.OM.UnitTests/Microsoft.Build.Engine.OM.UnitTests.VSTest.csproj">
+    <Project Path="src/Build.OM.UnitTests/Unity-Billal-mesloub.Build.Engine.OM.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Build.UnitTests/Microsoft.Build.Engine.UnitTests.VSTest.csproj">
+    <Project Path="src/Build.UnitTests/Unity-Billal-mesloub.Build.Engine.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/BuildCheck.UnitTests/Microsoft.Build.BuildCheck.UnitTests.VSTest.csproj">
+    <Project Path="src/BuildCheck.UnitTests/Unity-Billal-mesloub.Build.BuildCheck.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Framework.UnitTests/Microsoft.Build.Framework.UnitTests.VSTest.csproj">
+    <Project Path="src/Framework.UnitTests/Unity-Billal-mesloub.Build.Framework.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/MSBuild.UnitTests/Microsoft.Build.CommandLine.UnitTests.VSTest.csproj">
+    <Project Path="src/MSBuild.UnitTests/Unity-Billal-mesloub.Build.CommandLine.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
     <Project Path="src/StringTools.UnitTests/StringTools.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Tasks.UnitTests/Microsoft.Build.Tasks.UnitTests.VSTest.csproj">
+    <Project Path="src/Tasks.UnitTests/Unity-Billal-mesloub.Build.Tasks.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
-    <Project Path="src/Utilities.UnitTests/Microsoft.Build.Utilities.UnitTests.VSTest.csproj">
+    <Project Path="src/Utilities.UnitTests/Unity-Billal-mesloub.Build.Utilities.UnitTests.VSTest.csproj">
       <Platform Solution="*|x64" Project="x64" />
     </Project>
   </Folder>
